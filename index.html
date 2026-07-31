@@ -108,11 +108,12 @@
       border: 1px solid var(--card-border);
       border-radius: 12px;
       padding: 12px;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: space-between;
       gap: 10px;
     }
+    .upi.show { display: flex; }
     .upi-label {
       font-size: 1rem;
       font-weight: 700;
@@ -183,7 +184,7 @@
 
     <button class="qr-toggle" id="qr-btn" onclick="toggleQr()">Show QR</button>
 
-    <div class="upi">
+    <div class="upi" id="upi-row">
       <span class="upi-label" id="upi-display"></span>
       <button id="copy-btn" onclick="copyUpi()">Copy</button>
     </div>
@@ -231,10 +232,12 @@
     function toggleQr() {
       var wrap = document.querySelector('.qr-wrap')
       var hint = document.getElementById('qr-hint')
+      var upi = document.getElementById('upi-row')
       var btn = document.getElementById('qr-btn')
       var show = !wrap.classList.contains('show')
       wrap.classList.toggle('show', show)
       hint.classList.toggle('show', show)
+      upi.classList.toggle('show', show)
       btn.textContent = show ? 'Hide QR' : 'Show QR'
     }
 
