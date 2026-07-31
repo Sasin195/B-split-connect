@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+  <meta http-equiv="Pragma" content="no-cache" />
+  <meta http-equiv="Expires" content="0" />
+  <title>Support B-Split</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%232563eb'/%3E%3Ctext x='50' y='74' font-size='62' fill='white' text-anchor='middle' font-family='Arial'%3E%E2%99%A5%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --text: #0f172a;
+      --card: #ffffff;
+      --card-border: #e2e8f0;
+      --muted: #64748b;
+      --faint: #94a3b8;
+      --box: #f8fafc;
+      --box-border: #cbd5e1;
+      --box-bg: #f8fafc;
+      --accent: #2563eb;
+      --accent-strong: #1d4ed8;
+      --link: #1d4ed8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0f172a;
+        --text: #e2e8f0;
+        --card: #1e293b;
+        --card-border: #334155;
+        --muted: #94a3b8;
+        --faint: #64748b;
+        --box: #0f172a;
+        --box-border: #334155;
+        --box-bg: #0f172a;
+        --link: #93c5fd;
+      }
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      transition: background 0.3s ease, color 0.3s ease;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+    .logo {
+      width: 52px;
+      height: 52px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #2563eb, #4f46e5);
+      color: #fff;
+      font-size: 1.6rem;
+      font-weight: 800;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+    h1 { font-size: 1.5rem; margin-bottom: 8px; }
+    p.sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 4px; line-height: 1.6; }
+    .qr-wrap {
+      width: 260px;
+      height: 260px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-wrap img, .qr-wrap canvas { width: 100%; height: 100%; }
+    p.hint { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+    .upi {
+      background: var(--box);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .upi-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--link);
+      flex: 1;
+      text-align: left;
+      overflow-wrap: anywhere;
+    }
+    .upi button {
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.8rem;
+      padding: 8px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .upi button:hover { background: var(--accent-strong); }
+    .copy-msg { display: none; }
+    .action-row {
+      display: flex;
+      gap: 4px;
+      margin-top: 4px;
+    }
+    .action-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      flex: 1;
+      padding: 12px 10px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .download-btn {
+      background: var(--box);
+      border: 1px solid var(--card-border);
+      color: var(--link);
+    }
+    .download-btn:hover { border-color: var(--link); }
+    .mail-btn {
+      background: var(--box);
+      border: 1px solid var(--card-border);
+      color: var(--link);
+    }
+    .mail-btn:hover { border-color: var(--link); }
+    footer { margin-top: 20px; color: var(--faint); font-size: 0.85rem; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="logo">♥</div>
+    <h1>Support B-Split</h1>
+    <p class="sub">
+      B-Split is free, ad-free, and keeps all your data on your device.
+      If it saved you from awkward bill math, consider a small donation to keep it going. Thank you!
+    </p>
+
+    <div class="qr-wrap">
+      <canvas id="qr"></canvas>
+    </div>
+    <p class="hint">Scan with any UPI app to donate</p>
+
+    <div class="upi">
+      <span class="upi-label" id="upi-display"></span>
+      <button id="copy-btn" onclick="copyUpi()">Copy</button>
+    </div>
+
+    <div class="action-row">
+      <a href="#" class="action-btn download-btn" id="download-link">⬇ Download</a>
+      <a href="mailto:yourname@example.com" class="action-btn mail-btn" id="mail-link" onclick="return handleContact()">✉ Contact</a>
+    </div>
+  </div>
+
+  <footer>B-Split · Developed by Sashank Namana</footer>
+
+  <script src="config.js"></script>
+  <script src="qrcode.min.js"></script>
+  <script>
+    var SITE = window.SITE_CONFIG
+    var UPI_ID = SITE.upiId
+
+    function applyEmail(email) {
+      var link = document.getElementById('mail-link')
+      link.href = 'mailto:' + email
+    }
+
+    function buildQr() {
+      var uri = 'upi://pay?pa=' + encodeURIComponent(UPI_ID) +
+        (SITE.payerName ? '&pn=' + encodeURIComponent(SITE.payerName) : '') + '&mode=02'
+      QRCode.toCanvas(document.getElementById('qr'), uri, {
+        width: 260,
+        margin: 4,
+        errorCorrectionLevel: 'M',
+        color: { dark: '#000000', light: '#00000000' },
+      }, function (err) {
+        if (err) console.error('QR generation failed:', err)
+      })
+    }
+
+    function handleContact() {
+      var btn = document.getElementById('mail-link')
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(SITE.contactEmail).then(function () {
+          btn.textContent = 'Copied!'
+          setTimeout(function () { btn.textContent = '✉ Contact' }, 1500)
+        }).catch(function () {})
+      }
+      return true
+    }
+
+    function copyUpi() {
+      var btn = document.getElementById('copy-btn')
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(UPI_ID).then(function () {
+          btn.textContent = 'Copied!'
+          setTimeout(function () { btn.textContent = 'Copy' }, 1500)
+        })
+      } else {
+        btn.textContent = 'Failed'
+        setTimeout(function () { btn.textContent = 'Copy' }, 1500)
+      }
+    }
+
+    applyEmail(SITE.contactEmail)
+    document.getElementById('download-link').href = SITE.downloadUrl
+    document.getElementById('upi-display').textContent = UPI_ID
+    buildQr()
+  </script>
+</body>
+</html>
