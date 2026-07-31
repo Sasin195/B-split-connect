@@ -192,15 +192,19 @@
     function buildQr() {
       var uri = 'upi://pay?pa=' + encodeURIComponent(UPI_ID) +
         (SITE.payerName ? '&pn=' + encodeURIComponent(SITE.payerName) : '') + '&mode=02'
+      var darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
       QRCode.toCanvas(document.getElementById('qr'), uri, {
         width: 360,
         margin: 4,
         errorCorrectionLevel: 'M',
-        color: { dark: '#ffffff', light: '#00000000' },
+        color: { dark: darkMode ? '#ffffff' : '#000000', light: '#00000000' },
       }, function (err) {
         if (err) console.error('QR generation failed:', err)
       })
     }
+
+    var mq = window.matchMedia('(prefers-color-scheme: dark)')
+    if (mq.addEventListener) mq.addEventListener('change', buildQr)
 
     function handleContact() {
       return true
