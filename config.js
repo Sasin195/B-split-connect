@@ -1,7 +1,7 @@
 // Single config file for the B-Split donation site.
 // Edit these values and the site updates automatically.
 window.SITE_CONFIG = {
-  contactEmail: 'yourname@example.com',
+  contactEmail: 'vertexdev3@gmail.com',
   upiId: 'sashanknamana@slc',
   payerName: 'Mr Namana Sashank',
   // Put your latest app file in the "downloads" folder and set the filename here.
