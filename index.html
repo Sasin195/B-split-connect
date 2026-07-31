@@ -78,10 +78,10 @@
     p.sub { color: var(--muted); font-size: 0.95rem; margin-bottom: 4px; line-height: 1.6; }
     .qr-wrap {
       width: 100%;
-      max-width: 280px;
+      max-width: 220px;
       aspect-ratio: 1 / 1;
       margin: 0 auto 12px;
-      padding: 10px;
+      padding: 8px;
       background: #0f172a;
       border-radius: 16px;
       display: flex;
@@ -196,7 +196,7 @@
       var uri = 'upi://pay?pa=' + encodeURIComponent(UPI_ID) +
         (SITE.payerName ? '&pn=' + encodeURIComponent(SITE.payerName) : '') + '&mode=02'
       QRCode.toCanvas(document.getElementById('qr'), uri, {
-        width: 480,
+        width: 400,
         margin: 4,
         errorCorrectionLevel: 'M',
         color: { dark: '#ffffff', light: '#00000000' },
