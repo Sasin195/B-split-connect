@@ -202,13 +202,6 @@
     }
 
     function handleContact() {
-      var btn = document.getElementById('mail-link')
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(SITE.contactEmail).then(function () {
-          btn.textContent = 'Copied!'
-          setTimeout(function () { btn.textContent = '✉ Contact' }, 1500)
-        }).catch(function () {})
-      }
       return true
     }
 
