@@ -81,12 +81,28 @@
       max-width: 180px;
       aspect-ratio: 1 / 1;
       margin: 20px auto 14px;
-      display: flex;
+      display: none;
       align-items: center;
       justify-content: center;
     }
+    .qr-wrap.show { display: flex; }
     .qr-wrap img, .qr-wrap canvas { width: 100%; height: 100%; }
-    p.hint { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; }
+    p.hint { color: var(--muted); font-size: 0.9rem; margin-bottom: 20px; display: none; }
+    p.hint.show { display: block; }
+    .qr-toggle {
+      width: 100%;
+      border: none;
+      background: var(--accent);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 12px;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-bottom: 12px;
+      transition: background 0.2s ease;
+    }
+    .qr-toggle:hover { background: var(--accent-strong); }
     .upi {
       background: var(--box);
       border: 1px solid var(--card-border);
@@ -163,7 +179,9 @@
     <div class="qr-wrap">
       <canvas id="qr"></canvas>
     </div>
-    <p class="hint">Scan with any UPI app to donate</p>
+    <p class="hint" id="qr-hint">Scan with any UPI app to donate</p>
+
+    <button class="qr-toggle" id="qr-btn" onclick="toggleQr()">Show QR</button>
 
     <div class="upi">
       <span class="upi-label" id="upi-display"></span>
@@ -208,6 +226,16 @@
 
     function handleContact() {
       return true
+    }
+
+    function toggleQr() {
+      var wrap = document.querySelector('.qr-wrap')
+      var hint = document.getElementById('qr-hint')
+      var btn = document.getElementById('qr-btn')
+      var show = !wrap.classList.contains('show')
+      wrap.classList.toggle('show', show)
+      hint.classList.toggle('show', show)
+      btn.textContent = show ? 'Hide QR' : 'Show QR'
     }
 
     function copyUpi() {
